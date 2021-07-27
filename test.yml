@@ -1,0 +1,10 @@
+version: "3.9"
+
+Services:
+  #Server
+  apache:
+    image:stable-latest-alphine
+  postgres:
+    image: postgres:latest
+  php:
+    image:php:7.4-fpm-alphine
