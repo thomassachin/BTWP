@@ -1,10 +1,22 @@
+# WordPress Docker
 version: "3.9"
 
 Services:
   #Server
-  apache:
-    image:stable-latest-alphine
-  postgres:
-    image: postgres:latest
+  nginix:
+    image: nginix:stable-latest-alphine
+    ports:
+      - 80:80
   php:
-    image:php:7.4-fpm-alphine
+    image: php:7.4-fpm-alphine
+    #Database
+    db:
+      image: mysql:latest
+      container_name: mysql
+      restart: always
+      command: "--default-authentication-plugin=mysql_native_password"
+      environment:
+        - MYSQL_ROOT_PASSWORD: password
+        - MYSQL_DATABASE: wpdb
+        - MYSQL_USER: user
+        - MYSQL_PASSWORD: password
