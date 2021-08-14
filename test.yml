@@ -1,22 +1,37 @@
 # WordPress Docker
-version: "3.9"
+version: "3.7"
 
 Services:
-  #Server
-  nginix:
-    image: nginix:stable-latest-alphine
-    ports:
-      - 80:80
-  php:
-    image: php:7.4-fpm-alphine
+#Wordpress
+    Wordpress:
+      image: Wordpress:latest
+      container_name: bethel-demo-wp
+      restart: always
+      depends_on: {'db'}
+      ports: {'80:80'}
+      links: {'db:db'}
+      volumes:
+        - './wp-data:/var/www/html'
+      environment:
+        - WORDPRESS_DB_HOST: db
+        - WORDPRESS_DB_NAME: wpdb
+        - WORDPRESS_DB_USER: user
+        - WORDPRESS_DB_PASSWORD: password
+
     #Database
     db:
-      image: mysql:latest
-      container_name: mysql
+      image: mariadb:latest
+      container_name: bethel-demo-db
       restart: always
-      command: "--default-authentication-plugin=mysql_native_password"
+      volumes:
+        - db_data:/var/lib/mysql
+        - ./backups:/backups
       environment:
-        - MYSQL_ROOT_PASSWORD: password
         - MYSQL_DATABASE: wpdb
         - MYSQL_USER: user
         - MYSQL_PASSWORD: password
+        - MYSQL_ALLOW_EMPTY_PASSWORDS: 'no'
+        - MYSQL_ROOT_PASSWORD: password
+
+volumes:
+db_data: {}
