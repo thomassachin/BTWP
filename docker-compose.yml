@@ -7,7 +7,7 @@ services:
     container_name: bethel-demo-db
     restart: always
     volumes:
-      - ${WEBAPP_STORAGE_HOME}:/home
+      - ${WEBAPP_STORAGE_HOME}:/home/ddb
     environment:
       MYSQL_DATABASE: wpdemo
       MYSQL_USER: wpdemo_user
