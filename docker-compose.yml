@@ -7,8 +7,7 @@ services:
     container_name: bethel-demo-db
     restart: always
     volumes:
-      - db_data:/var/lib/mysql
-      - ./backups:/backups
+      - ${WEBAPP_STORAGE_HOME}/var/lib/mysql
     environment:
       MYSQL_DATABASE: wpdemo
       MYSQL_USER: wpdemo_user
@@ -21,10 +20,10 @@ services:
     container_name: bethel-demo-wp
     restart: always
     depends_on: ['db']
-    ports: ['8010:80']
+    ports: ['8000:80']
     links: ['db:db']
     volumes:
-      - './wp-data:/var/www/html'
+      - ${WEBAPP_STORAGE_HOME}/wp-data:/var/www/html'
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wpdemo
