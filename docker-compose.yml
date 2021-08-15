@@ -21,7 +21,7 @@ services:
     container_name: bethel-demo-wp
     restart: always
     depends_on: ['db']
-    ports: ['80:80']
+    ports: ['8010:80']
     links: ['db:db']
     volumes:
       - './wp-data:/var/www/html'
