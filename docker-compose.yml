@@ -29,6 +29,3 @@ services:
       WORDPRESS_DB_NAME: wpdemo
       WORDPRESS_DB_USER: wpdemo_user
       WORDPRESS_DB_PASSWORD: BR3emm2
-volumes:
-    ${WEBAPP_STORAGE_HOME}/wordpress: {}
-    ${WEBAPP_STORAGE_HOME}/mysql: {}
