@@ -1,0 +1,33 @@
+# WordPress Docker
+version: '3.3'
+services:
+#Database
+  db:
+    image: mysql:latest
+    container_name: bethel-demo-db
+    restart: always
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: wpdemo
+      MYSQL_USER: wpdemo_user
+      MYSQL_PASSWORD: BR3emm2
+      MYSQL_ALLOW_EMPTY_PASSWORDS: 'no'
+      MYSQL_ROOT_PASSWORD: BR3emm2
+#Wordpress
+  wordpress:
+    image: wordpress:latest
+    container_name: bethel-demo-wp
+    restart: always
+    depends_on: ['db']
+    ports: ['8000:80']
+    links: ['db:db']
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wpdemo
+      WORDPRESS_DB_USER: wpdemo_user
+      WORDPRESS_DB_PASSWORD: BR3emm2
+volumes:
+  ${WEBAPP_STORAGE_HOME}: {}
